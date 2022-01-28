@@ -15,37 +15,37 @@ object project extends App {
     .csv("data_etat_civil_2019.csv")
 
 
-//  All.printSchema()
-//  All.show(10)
-//
-//
-//  val Married_by_country = All.filter(All("MaritalStatus") like "Married").groupBy("Country").count().withColumnRenamed("count", "Married").withColumnRenamed("Country", "Country1")
-//  val Divorced_by_country = All.filter(All("MaritalStatus") like "Divorced").groupBy("Country").count().withColumnRenamed("count", "Divorced").withColumnRenamed("Country", "Country2")
-//  val Single_by_country = All.filter(All("MaritalStatus") like "Single").groupBy("Country").count().withColumnRenamed("count", "Single").withColumnRenamed("Country", "Country3")
-//  val population_by_country = All.groupBy("Country").count().withColumnRenamed("count", "Population").withColumnRenamed("Country", "Country4")
-//
-//  val statistics_part_one = Married_by_country.join(Divorced_by_country, Married_by_country("Country1") === Divorced_by_country("Country2"), "cross")
-//  val statistics_part_two = statistics_part_one.join(Single_by_country, statistics_part_one("Country1") === Single_by_country("Country3"), "cross")
-//  val statistics_part_three = statistics_part_two.join(population_by_country, statistics_part_two("Country1") === population_by_country("Country4"), "cross")
-//
-//  //All Statistics
-//  val statistics = statistics_part_three.select(col("Country1").as("Country"), col("Population"), col("Married"), col("Divorced"), col("Single"))
-//  statistics.show(226)
-//
-//  // Ten countries wich have a maximum number of married
-//   val ten_countries_max_married = Married_by_country.withColumnRenamed("Country1", "Countries").sort(desc("count")).limit(10)
-//  ten_countries_max_married.show()
-//
-//  //Ten countries wich have a maximum number of divorced
-//  val ten_countries_max_divorced = Divorced_by_country.withColumnRenamed("Country2", "Countries").sort(desc("count")).limit(10)
-//  ten_countries_max_divorced.show()
-//
-//  //Ten countries wich have a maximum number of single
-//  val ten_countries_max_single= Single_by_country.withColumnRenamed("Country3", "Countries").sort(desc("count")).limit(10)
-//  ten_countries_max_single.show()
-//
-//
-//   statistics.repartition(1).write.csv("C://Users//asmab//OneDrive//Bureau//ESGI//spark//proje//statistics//statistics.csv")
+  All.printSchema()
+  All.show(10)
+
+
+  val Married_by_country = All.filter(All("MaritalStatus") like "Married").groupBy("Country").count().withColumnRenamed("count", "Married").withColumnRenamed("Country", "Country1")
+  val Divorced_by_country = All.filter(All("MaritalStatus") like "Divorced").groupBy("Country").count().withColumnRenamed("count", "Divorced").withColumnRenamed("Country", "Country2")
+  val Single_by_country = All.filter(All("MaritalStatus") like "Single").groupBy("Country").count().withColumnRenamed("count", "Single").withColumnRenamed("Country", "Country3")
+  val population_by_country = All.groupBy("Country").count().withColumnRenamed("count", "Population").withColumnRenamed("Country", "Country4")
+
+  val statistics_part_one = Married_by_country.join(Divorced_by_country, Married_by_country("Country1") === Divorced_by_country("Country2"), "cross")
+  val statistics_part_two = statistics_part_one.join(Single_by_country, statistics_part_one("Country1") === Single_by_country("Country3"), "cross")
+  val statistics_part_three = statistics_part_two.join(population_by_country, statistics_part_two("Country1") === population_by_country("Country4"), "cross")
+
+  //All Statistics
+  val statistics = statistics_part_three.select(col("Country1").as("Country"), col("Population"), col("Married"), col("Divorced"), col("Single"))
+  statistics.show(226)
+
+  // Ten countries wich have a maximum number of married
+   val ten_countries_max_married = Married_by_country.withColumnRenamed("Country1", "Countries").sort(desc("count")).limit(10)
+  ten_countries_max_married.show()
+
+  //Ten countries wich have a maximum number of divorced
+  val ten_countries_max_divorced = Divorced_by_country.withColumnRenamed("Country2", "Countries").sort(desc("count")).limit(10)
+  ten_countries_max_divorced.show()
+
+  //Ten countries wich have a maximum number of single
+  val ten_countries_max_single= Single_by_country.withColumnRenamed("Country3", "Countries").sort(desc("count")).limit(10)
+  ten_countries_max_single.show()
+
+
+   statistics.repartition(1).write.csv("C://Users//asmab//OneDrive//Bureau//ESGI//spark//proje//statistics//statistics.csv")
 
 
 
