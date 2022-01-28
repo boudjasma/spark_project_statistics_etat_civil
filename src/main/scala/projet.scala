@@ -3,21 +3,20 @@ import org.apache.spark.sql.functions.{col, desc}
 
 
 object project extends App {
+
   val ss = SparkSession
     .builder()
     .appName("ProjetSpark")
     .master("local[*]")
     .getOrCreate()
 
-  val All = ss.read
+  val data = ss.read
     .option("header","true")
     .option("inferSchema","true")
-    .csv("data_etat_civil_2019.csv")
+    .csv("MARITAL_STATUS_2019.csv")
 
-
+  val All = data.select("Country","Sex","MaritalStatus","AgeGroup")
   All.printSchema()
-  All.show(10)
-
 
   val Married_by_country = All.filter(All("MaritalStatus") like "Married").groupBy("Country").count().withColumnRenamed("count", "Married").withColumnRenamed("Country", "Country1")
   val Divorced_by_country = All.filter(All("MaritalStatus") like "Divorced").groupBy("Country").count().withColumnRenamed("count", "Divorced").withColumnRenamed("Country", "Country2")
